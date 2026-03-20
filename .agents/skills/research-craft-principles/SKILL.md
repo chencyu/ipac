@@ -1,6 +1,6 @@
 ---
 name: research-craft-principles
-description: "Apply quality principles when conducting research, writing analysis, building arguments, structuring reports, or designing experiments. Research-domain analogues of implementation craft: clarity, verifiability, scope discipline, and unified argument structure. Use for literature reviews, analytical writing, experiment design, and any knowledge synthesis task."
+description: "Must load when conducting research, writing analysis, building arguments, structuring reports, or designing experiments — literature reviews, analytical writing, and knowledge synthesis. Do not produce research or analytical work without this skill."
 user-invocable: false
 ---
 

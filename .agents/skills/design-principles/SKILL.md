@@ -1,6 +1,6 @@
 ---
 name: design-principles
-description: "Apply structural and architectural design principles before building anything — software, research methodology, data models, analysis frameworks. Use when deciding how to organize a system or structure a problem space. Applies to code architecture, research design, and data organization equally."
+description: "Must load before designing any system, component, or data model — code architecture, data schemas, research methodology, or analysis frameworks. Do not produce or evaluate designs without this skill."
 user-invocable: false
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: git-commit
-description: "Write git commit messages following Linus Torvalds' philosophy and Linux Kernel guidelines. Use when writing, reviewing, or improving commit messages, staging changes, structuring a commit, or deciding how to split changes across commits."
+description: "Must load when writing, reviewing, or improving any git commit message, staging changes, or deciding how to split commits. Do not write commit messages without this skill."
 user-invocable: false
 ---
 

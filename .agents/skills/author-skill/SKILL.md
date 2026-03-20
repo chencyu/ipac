@@ -1,6 +1,6 @@
 ---
 name: author-skill
-description: "Author or improve an agent skill — create new skills, refine existing ones, or extract reusable skills from conversations. Use when the user wants to build, edit, review, or package a skill, even if they say 'make this reusable', 'package this workflow', or 'turn this into a capability'."
+description: "Must load when creating, editing, reviewing, or validating any agent skill (SKILL.md). Do not author skills without this skill."
 user-invocable: false
 compatibility: "Requires git (for local spec sync). VS Code with GitHub Copilot. (Optional)"
 ---
@@ -33,7 +33,19 @@ A skill has three layers with different visibility and cost. When authoring or e
 
 The agent sees `name` + `description` (~100 tokens) for every installed skill and classifies: load or skip. The body is invisible until that decision is made.
 
-When writing a description: use the **user's vocabulary** — the words they'd actually type. Cover synonyms and near-miss phrasings. Example: a user who says "turn this chat into something reusable" needs a description that covers "reusable", "package", "extract" — matching their intent, even when they never say "skill".
+**Required template — all descriptions in this repo must follow this exact structure:**
+
+```
+"Must load when/before [activity]. Do not [activity] without this skill."
+```
+
+Rules:
+- **Sentence 1** — mandatory trigger: `Must load when/before` + the activity phrase that requires this skill. Be specific about the activity, not about the skill's contents.
+- **Sentence 2** — mandatory inhibitor: `Do not` + the same activity phrase + `without this skill.` Mirror sentence 1's activity in negative form.
+- No feature lists, no synonym coverage, no "use when" softeners. The classifier decides from the activity shape alone.
+- Keep total description under 150 characters where possible.
+
+Gotcha: Do not add a third sentence describing what the skill does. That content belongs in the body, not the description.
 
 ### Body — earn every token
 

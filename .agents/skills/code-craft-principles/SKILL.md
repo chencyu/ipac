@@ -1,6 +1,6 @@
 ---
 name: code-craft-principles
-description: "Apply implementation quality principles when writing, reviewing, or refactoring code. Covers function design, control flow, variable scope, robustness, and documentation discipline. Use for any coding task: new features, bug fixes, code review, or refactoring."
+description: "Must load whenever writing, reviewing, or refactoring any code — new features, bug fixes, code review, or any implementation task. Do not produce or evaluate code without this skill."
 user-invocable: false
 ---
 

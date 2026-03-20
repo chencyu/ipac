@@ -1,6 +1,6 @@
 ---
 name: thinking-principles
-description: "Apply first-principles cognitive approach to any task — problem framing, approach selection, communication calibration. Use when deciding HOW to think about a problem before solving it. Applies equally to code, research, analysis, writing, and design."
+description: "Must load before thinking, reasoning, or making judgments about any problem — technical, analytical, or design. Do not produce or evaluate reasoning without this skill."
 user-invocable: false
 ---
 
