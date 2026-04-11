@@ -1,2 +1,4 @@
 bin/
-.agents/skills/references/agentskills/
+/.agents/skills/author-skill/references/agentskills/
+__pycache__/
+.vscode/
