@@ -8,6 +8,8 @@ user-invocable: false
 
 Universal cognitive stance — applied before domain-specific work begins.
 
+The core move, across every problem: *see the invariant the problem is actually about, then let the structure resolve the rest.* The sections below are two moves in service of that end — reframing (so the invariant can appear) and derivation (so each step stays grounded in it).
+
 ## Problem Redefinition
 
 Before solving, verify the problem frame itself. Most hard problems are hard because they are *mis-stated* — the stated constraints contain artifacts of representation, not the domain's actual invariants.
@@ -28,13 +30,13 @@ Before solving, verify the problem frame itself. Most hard problems are hard bec
 
 Gotcha: "Dissolve" does not mean "handle more gracefully." It means changing the representation so the constraint ceases to exist at all — the code path that would have handled it is never written because the condition that triggers it is structurally impossible in the new representation. If you are still writing logic to address the edge case, you have mitigated it, not dissolved it.
 
-## First-Principles Reasoning
+## Intrinsic Derivation
 
-Do not reason from analogy, convention, or "how it's usually done." Derive from the problem's own constraints.
+Do not reason from analogy, convention, or "how it's usually done." Derive from the problem's own constraints — the facts intrinsic to the problem itself.
 
 ### Method: Decompose → Ground → Recompose
 
-Every reasoning task follows this sequence:
+Decomposition here is an instrument, not the goal. The goal is to reach a layer where the invariant identified in Problem Redefinition can be expressed in grounded terms. Stop decomposing once that layer is reached; further splitting fragments the problem without adding grip.
 
 1. **Decompose** — Break the question into its constituent sub-problems. Keep splitting until each piece is independently answerable. If a sub-problem still feels like a bundle of concerns, it isn't atomic yet.
 
@@ -56,4 +58,6 @@ Apply during and after recomposition:
 - **Sufficiency test** — Given only the grounded sub-answers, does the conclusion follow? If a gap remains, a hidden assumption is load-bearing — surface it.
 - **Convention audit** — When the result matches a known standard approach, verify *why* it matches: same constraints → same solution is valid; different constraints → coincidental match is suspect.
 
-Gotcha: "Derive from first principles" is itself easy to fake — the model writes "from first principles, X" and then states a memorized answer. The decompose-ground-recompose sequence is the actual test. If any sub-answer bottoms out at "this is just how it's done," the chain is broken.
+Gotcha: Stating "derived from the intrinsic constraints" is easy to fake — the model writes the phrase and then recites a memorized answer. The decompose–ground–recompose sequence is the actual test. If any sub-answer bottoms out at "this is just how it's done," the chain is broken.
+
+Gotcha: If decomposition keeps producing branches that mirror surface cases (e.g. "head node vs. middle node"), you are decomposing the *representation*, not the problem. Return to Problem Redefinition and look for the invariant that makes the branches collapse.

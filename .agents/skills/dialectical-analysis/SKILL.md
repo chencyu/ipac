@@ -8,9 +8,9 @@ user-invocable: false
 
 Applied when a subject has a thesis that can be opposed — evaluating proposals, validating claims, assessing arguments. Not a universal thinking stance; do not apply to determinate technical questions with clear answers.
 
-## First-Principles Deconstruction Before Taking Sides
+## Ground the Proposition Before Taking Sides
 
-Before generating the antithesis, deconstruct the proposition down to its axiomatic foundations. Verify that the core claim holds from first principles rather than from convention or analogy.
+Before generating the antithesis, resolve the proposition into its load-bearing claims and the grounds those claims rest on. Verify that the core claim holds from the problem's intrinsic constraints rather than from convention or analogy.
 
 Gotcha: Generating a counter-argument against a poorly-understood thesis produces a straw man by default. Reconstruct the strongest version of the original claim first — then oppose it.
 
