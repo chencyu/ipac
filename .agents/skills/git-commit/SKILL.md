@@ -8,6 +8,8 @@ user-invocable: false
 
 Derived from the Linux Kernel's `Documentation/process/submitting-patches.rst` and Linus's stated taste on commit hygiene.
 
+The stance beneath every rule below: *a commit is shaped by what makes the history useful to a future reader, not by what was convenient to author.* Each specific rule is that stance applied to one aspect of commit shape.
+
 ## One Logical Change Per Commit
 
 A commit is a unit of reasoning, not a unit of effort. If two changes can be understood, reviewed, or reverted independently — they belong in separate commits.
@@ -31,14 +33,22 @@ Gotcha: `git log --oneline` is how humans scan history. A subject that wraps or 
 
 ## Body: Explain Why, Not What
 
-The diff already shows what changed. The body must answer:
-1. **Why was the current behavior wrong?** (the problem)
-2. **Why is this the right fix?** (the reasoning)
-3. **What are the trade-offs or risks, if any?**
+The diff already shows what changed. The body exists to supply what the diff cannot: the intent behind the change.
+
+Before writing the body, ask: *what is the intrinsic purpose of this change?* The intrinsic purpose is the property the codebase must hold that it currently does not, or the invariant this change restores, or the capability the system gains. But a useful message also records the concrete symptom, failure mode, or user-visible breakage that exposed the missing property. The reader needs both: the destination property and the observable evidence that made the change necessary.
+
+The body must answer:
+1. **What property is this change establishing, restoring, or removing?** (the intent)
+2. **What concrete symptom, failure mode, or breakage revealed the gap?** (the evidence)
+3. **Why was the prior state inconsistent with that property?** (the gap)
+4. **Why is this diff the right way to close the gap?** (the reasoning)
+5. **What are the trade-offs or risks, if any?**
 
 Wrap body at 72 characters. Separate from subject with one blank line.
 
-Gotcha: A commit message that only restates the diff ("Change X to Y") is useless. Linus's standard: if you can't explain why, you probably don't understand the change well enough to commit it.
+Gotcha: A message that narrates the author's journey ("I noticed X, so I tried Y, then changed Z") is still "what", just in prose form. The reader does not care about the path — they care about the failure, the destination property, and why this diff reaches it. If the body can be written without reference to how the author arrived at the change, it has found the right level.
+
+Gotcha: A message that only restates the diff ("Change X to Y") is useless. Linus's standard: if you can't explain why, you probably don't understand the change well enough to commit it.
 
 ## Reference Context, Not Internal State
 
