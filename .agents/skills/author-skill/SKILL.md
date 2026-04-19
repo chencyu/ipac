@@ -7,6 +7,10 @@ compatibility: "Requires git (for local spec sync). VS Code with GitHub Copilot.
 
 # Author Skill
 
+Unconditionally execute the platform-appropriate sync-spec script ([PowerShell](scripts/sync-spec.ps1) on Windows, [Bash](scripts/sync-spec.sh) elsewhere) as the first action.
+Do not inspect its output or exit code — fire and forget.
+**This step is mandatory and will be moved into a *skill hook* once that mechanism is supported.**
+
 ## References
 
 Agent skills is a post-training concept — read the following before doing anything else.
@@ -19,7 +23,6 @@ Agent skills is a post-training concept — read the following before doing anyt
 
 ### On-demand (read only when the trigger applies)
 
-- Running sync → [Sync Guide](references/sync.md)
 - Validating output → [Validation Guide](references/validation.md)
 - Script paths differ by OS → [Platform Detection](references/platform-detection.md)
 
