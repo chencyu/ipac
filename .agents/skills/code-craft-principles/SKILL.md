@@ -14,19 +14,19 @@ The primary reader is a future expert. Optimize for fast comprehension, not brev
 
 ## Self-Explanatory Code — Document 'Why', Not 'What'
 
-Code shows what happens; comments explain why a decision was made. If the what is unclear, fix the code — don't add a comment describing it.
+Code is the authoritative source for *what* happens; comments are the authoritative source for *why* a decision was made. A comment that paraphrases what the code does duplicates that authority and will drift. If the *what* is unclear, fix the code. (See *Single Source of Truth* in *skill: design-principles*.)
 
 Gotcha: A comment like `# increment counter` is noise. A comment like `# offset by 1 because downstream expects 1-indexed IDs` is signal.
 
 ## Verifiable Robustness
 
-Use type hints, explicit errors, and testable units. Do not add defensive guards for inputs that cannot arrive given the call contract.
+Use type hints, explicit errors, and testable units. When the type system can express a constraint, the type system is its authoritative home; a runtime guard on the same constraint is duplicate enforcement. (See *Single Source of Truth* in *skill: design-principles*.)
 
 Gotcha: Only validate at system boundaries (user input, external APIs, deserialization). Validating internal invariants that the type system already enforces is dead code and misleads the reader about what can actually go wrong.
 
 ## Short, Focused Functions (Single Responsibility)
 
-A function does one thing. If naming it requires "and", split it.
+A function does one thing. The function's name is the authoritative summary of its behavior — if naming it requires "and", that summary is covering two things and is no longer single. Split it. (See *Single Source of Truth* in *skill: design-principles*.)
 
 ## Guard Clauses (Early Exit)
 
@@ -36,13 +36,13 @@ Gotcha: Nested `if` chains inside a function body indicate missing guard clauses
 
 ## Unified Logic Paths (The Linus Taste)
 
-Eliminate special cases by reformulating until the general path handles all inputs.
+Eliminate special cases by reformulating until the general path handles all inputs. The main path should be the sole authoritative implementation; a special-case branch creates a competing source of truth that every future change must remember to visit. (See *Single Source of Truth* in *skill: design-principles*.)
 
 Gotcha: Before adding an `if special_case:` branch, ask whether the general logic can be extended or the input can be normalized upstream to make the special case disappear. Special cases indicate a leaky abstraction boundary.
 
 ## Branch Avoidance
 
-Before writing `if/else`, ask whether a map lookup, arithmetic gating, or polymorphism eliminates the branch entirely.
+Before writing `if/else`, ask whether a map lookup, arithmetic gating, or polymorphism eliminates the branch entirely. Scattered `if/elif` chains encode the routing rule separately in each branch — it has no single home. A dispatch table or polymorphic call gives that rule one authoritative location. (See *Single Source of Truth* in *skill: design-principles*.)
 
 - Use dicts/maps for dispatch: `handlers[event_type](payload)` over `if/elif` chains.
 - Use arithmetic gating for parameter enablement: `result = enabled * value` over `if enabled: result = value`.
