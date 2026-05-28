@@ -20,6 +20,7 @@ LANG_BY_EXT = {
     ".py": "python",
     ".pyi": "python",
     ".pyw": "python",
+    ".rs": "rust",
 }
 
 
@@ -80,6 +81,18 @@ def main(argv: list[str] | None = None) -> int:
         proot = Path(args.project_root).resolve() if args.project_root else None
         out = python_tracer.trace_file(
             path, l1, l2, as_json=args.json, project_root=proot
+        )
+        sys.stdout.write(out)
+        if not out.endswith("\n"):
+            sys.stdout.write("\n")
+        return 0
+
+    if lang == "rust":
+        import rust_tracer
+        out = rust_tracer.trace_file(
+            str(path), (l1, l2),
+            as_json=args.json,
+            project_root=args.project_root,
         )
         sys.stdout.write(out)
         if not out.endswith("\n"):

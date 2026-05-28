@@ -18,13 +18,13 @@ If the range is fully self-contained and all symbols are defined within it, skip
 ## How to call
 
 ```
-python scripts/trace.py <file> <range> [--lang python] [--project-root <dir>] [--json]
+python scripts/trace.py <file> <range> [--lang python|rust] [--project-root <dir>] [--json]
 ```
 
 - `<file>` — path to source file (absolute or workspace-relative).
 - `<range>` — accepts `L10-L25`, `10-25`, `10:25`, or single `L10` (single line treated as `L10-L10`).
 - `--lang` — force language. Default: auto-detect by extension; fallback to shebang for extensionless files.
-- `--project-root` — override auto-detected project root. Auto-detection looks upward from `<file>` for `pyproject.toml`, `setup.py`, `setup.cfg`, `Pipfile`, `requirements.txt`, `.git`, or `.hg`.
+- `--project-root` — override auto-detected project root. Auto-detection looks upward from `<file>` for `pyproject.toml`, `setup.py`, `setup.cfg`, `Pipfile`, `requirements.txt`, `Cargo.toml`, `.git`, or `.hg`.
 - `--json` — emit JSON instead of Markdown (use only when the caller is another tool).
 
 Default output is **Markdown**. Reasoning: LLM training corpus is Markdown-heavy; `##/###` headers anchor sections robustly; empty sections are omitted so output scales with information density, not range size.
@@ -64,18 +64,33 @@ Not followed:
 
 ## Languages
 
-- **Python** — implemented (v1). Stdlib `ast` only; no external deps.
+- **Python** — implemented. Stdlib `ast` only; no external deps.
+- **Rust** — implemented. Backed by a compiled binary (`scripts/rust_tracer/`) built automatically on first use via `cargo build --release`. Requires a Rust toolchain on PATH (`rustup` recommended; MSRV 1.70+, tested through 1.94). Uses `syn` 2.x; deterministic project-local resolution including:
+  - `mod foo;` filesystem walk (with `mod.rs` and `foo.rs` layouts, lib/bin/workspace members from `Cargo.toml`).
+  - `use a::b::C [as D]` aliases + `pub use` re-exports.
+  - `crate::`, `self::`, `super::`, and sibling-crate prefixes inside a workspace.
+  - Associated functions (`Type::method`), inherent `impl` blocks, and `impl Trait for Type` lookups for instance methods.
+  - Implicit invariants: `unsafe` blocks, `?` propagation, panic surfaces (`unwrap`/`expect`/`panic!`/`assert!`/`todo!`/...), `mut` bindings, type annotations, lifetimes, `#[cfg(...)]` gates, attribute macros, I/O macros, mutation method calls.
+  - Std prelude names (`Ok`, `Err`, `Option`, `Vec`, ...) are recognized; not treated as unresolved.
 - Other languages — script reports "unsupported language for `<file>`" and exits 2.
 
 Detection order: extension → shebang. To force, use `--lang`.
 
-## Limitations (v1)
+## Limitations
 
+Python:
 - Re-binding flow (e.g. `obj = factory(); obj = wrap(obj)`) — only the first binding's class is resolved.
 - Conditional imports — the first binding by line number is taken as authoritative.
 - Inherited methods are resolved via direct bases only (one-hop per base, recursive with cycle protection); diamond-inheritance order is best-effort, not strict MRO.
 - Side-effect detection is heuristic (name-based for I/O, AST-shape-based for mutations).
 - Python 3.8+ required (`ast.end_lineno`).
+
+Rust:
+- Macro expansion is not performed; items introduced by `macro_rules!` or proc-macros are reported as-is.
+- Inline `mod foo { ... }` modules are detected but not deeply walked by file path (their items are still seen at the enclosing file).
+- Method dispatch on receivers without a discoverable type binding (e.g., chained calls, generic params, `dyn Trait`) is reported as `unresolved-method` with the partial chain.
+- Workspace globs in `[workspace] members = ["crates/*"]` are handled for direct subfolders only; deeper glob patterns are not expanded.
+- External crates (anything not under the discovered workspace root) are marked but not traversed.
 
 ## Gotcha
 

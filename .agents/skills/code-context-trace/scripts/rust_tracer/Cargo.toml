@@ -1,0 +1,23 @@
+[package]
+name = "ctt_rust"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.70"
+
+[[bin]]
+name = "ctt_rust"
+path = "src/main.rs"
+
+[dependencies]
+syn = { version = "2", features = ["full", "extra-traits", "visit", "parsing"] }
+proc-macro2 = { version = "1", features = ["span-locations"] }
+quote = "1"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+toml = "0.8"
+
+[profile.release]
+opt-level = 2
+lto = false
+codegen-units = 16
+strip = true
