@@ -1,4 +1,5 @@
 bin/
 /.agents/skills/author-skill/references/agentskills/
+/.agents/skills/code-context-trace/fixtures/
 __pycache__/
 .vscode/
