@@ -1,4 +1,4 @@
-bin/
+.scratch/
 /.agents/skills/author-skill/references/agentskills/
 /.agents/skills/code-context-trace/fixtures/
 /.agents/skills/code-context-trace/scripts/rust_tracer/target/
