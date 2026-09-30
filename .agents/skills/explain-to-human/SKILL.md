@@ -34,6 +34,16 @@ No preamble establishing context. No adjacent question that was not asked. No ac
 
 Stop when the model runs. Judged by someone who knows the whole subject, the answer ends early. That is correct.
 
+## Sequence
+
+A model is installed one attachment at a time: each element holds only when it hangs on something the reader already holds — prior knowledge or an earlier element.
+
+- Open on what the reader can point to — the subject in use: what is done with it and what follows. That is the spine.
+- Bring in each later element through its relation to one already present, such as what it calls, contains, repeats, or changes.
+- State what a thing is and does first; a contrast holds only against a model already built.
+- Use the vocabulary the reader's domain already has. A coined term is a node with nothing to hang on.
+- Keep each causal chain in one place; divide material where a chain completes.
+
 ## Pointing
 
 A reference the reader can follow is the name of a black box whose internals stay out of the answer. What one click reaches is never carried a second time.
