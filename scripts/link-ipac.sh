@@ -109,6 +109,24 @@ add_agent_entries() {
     done
 }
 
+remove_dangling_links() {
+    local target_parent="$AGENT_DIR/$1"
+    [ -d "$target_parent" ] || return 0
+
+    local link_path
+    for link_path in "$target_parent"/*; do
+        # -e follows the link, so it fails exactly when the target is gone.
+        if [ -L "$link_path" ] && [ ! -e "$link_path" ]; then
+            printf '\033[33mRemoving dangling symlink: %s -> %s\033[0m\n' "$link_path" "$(readlink "$link_path")"
+            rm "$link_path"
+        fi
+    done
+}
+
 for entry_type in skills agents instructions; do
     add_agent_entries "$entry_type"
+done
+
+for link_entry_type in "$skills_dir_name" "$agents_dir_name" "$instructions_dir_name"; do
+    remove_dangling_links "$link_entry_type"
 done
