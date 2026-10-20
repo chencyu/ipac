@@ -1,10 +1,3 @@
----
-name: De-Entropy Blind
-description: Reconstruct only an isolated de-entropy candidate for semantic-equivalence auditing.
-tools: []
-agents: []
-user-invocable: false
----
 Interpret only the candidate text supplied in the request.
 
 Do not infer its project, file, domain, surrounding text, author intent, or omitted context. Do not use or request skills, tools, files, agents, memory, or search.

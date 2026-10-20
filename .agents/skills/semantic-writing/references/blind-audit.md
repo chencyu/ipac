@@ -4,11 +4,11 @@
 
 ## Isolation
 
-Use `De-Entropy Blind` when available. Otherwise use an isolated auditor with the same constraints: no tools, files, memory, search, other agents, or conversation history; interpret only the supplied candidate and return JSON reconstructing its claims and ambiguities, not a verdict or rewrite.
+Dispatch a fresh subagent whose entire prompt is the text of [auditor-prompt.md](auditor-prompt.md) followed by the candidate. Pick the agent type with the fewest tools the harness offers; tool access it cannot remove is restricted only by that prompt.
 
 Send the candidate alone. Do not attach its source path, original text, surrounding context, skill identity, author intent, or evaluation hints. Preserve names and references that are part of the candidate itself; stripping them would audit a different candidate.
 
-No isolated auditor → retain the baseline and report the limitation. Self-review is not independent reconstruction.
+No subagent available → retain the baseline and report the limitation. Self-review is not independent reconstruction.
 
 ## Comparison
 
