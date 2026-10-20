@@ -19,7 +19,7 @@ Read `references/validation.md` when validating output, `references/distillation
 
 ## Authoring
 
-Before authoring, load `content-writing` and `content-de-entropy`. Apply their shared workflow to skill files, references, and agent instructions before validation.
+Before authoring, load `semantic-writing`. Apply its pipeline to skill files, references, and agent instructions before validation.
 
 - **Description:** it is the always-visible classifier, not a summary. Use exactly `"Must load when/before [activity]. Do not [activity] without this skill."`: sentence one names a specific activity trigger; sentence two prohibits the same activity without the skill. No feature list, synonym coverage, soft "use when," or third sentence. Keep under 150 characters where possible.
 - **Body:** retain only content the agent would otherwise get wrong: non-inferable gotchas, non-obvious ordered procedure, and references with explicit read conditions.

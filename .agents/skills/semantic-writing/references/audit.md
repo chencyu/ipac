@@ -1,16 +1,8 @@
----
-name: content-de-entropy
-description: "Must load before finalizing or revising content for humans or AI. Do not finalize or revise such content without this skill."
-user-invocable: false
----
-
-# Content De-Entropy
-
-Load [content-writing](../content-writing/SKILL.md) and read the [shared contract](../content-writing/references/semantic-contract.md) before auditing. Both skills govern both skills and their supporting content as one workflow.
+# Bounded Audit
 
 **Audit:** baseline + candidate → independent reconstruction → contract comparison → accept or retain.
 
-Remove avoidable representation, not meaning or required value. Use `content-writing` to construct every candidate; truncation and symbol substitution are not improvements by themselves.
+Remove avoidable representation, not meaning or required value. Construct every candidate by the core; truncation and symbol substitution are not improvements by themselves.
 
 ## Bounded pass
 

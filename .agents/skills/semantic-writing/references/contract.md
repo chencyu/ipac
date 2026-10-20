@@ -1,17 +1,6 @@
-# Shared Content Contract
+# Content Contract
 
 **Preserve meaning and required value; remove only avoidable representation and decoding burden.** Character count is not the objective.
-
-Scope follows purpose, not file type or version control: content for humans or AI in chat, documents, prompts, skills, and embedded strings is governed here. Executable logic remains under its domain-specific rules.
-
-## Two faces, one workflow
-
-| Face | Operation |
-| --- | --- |
-| `content-writing` | Contract → candidate representation |
-| `content-de-entropy` | Baseline + candidate → verify → accept or retain |
-
-Load both before acting. Resolve the mutual dependency as one pair, not recursive load requests. Both phases apply to both skills, this contract, their references, and instructions used by their auditors; neither skill exempts its own implementation.
 
 ## Establish the baseline
 
@@ -37,4 +26,4 @@ One meaning has one authoritative home; other occurrences point to it unless the
 
 ## Finite self-application
 
-Audit scope = the frozen target artifact, including either skill when it is being edited. Audit bookkeeping is evidence about that target, not a recursively generated new target. Proposed reductions follow the bounded audit in `content-de-entropy`; stop when none can be justified without contract loss.
+Audit scope = the frozen target artifact, including this skill or its core instruction when being edited. Audit bookkeeping is evidence about that target, not a recursively generated new target. Proposed reductions follow the bounded pass in [audit.md](audit.md); stop when none can be justified without contract loss.
