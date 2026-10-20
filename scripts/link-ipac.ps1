@@ -94,6 +94,29 @@ function Add-AgentEntries {
     }
 }
 
+function Remove-DanglingLinks {
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory = $true)]
+        [string]$link_entry_type
+    )
+    $targetParent = Join-Path -Path $AGENT_DIR -ChildPath $link_entry_type
+    if (-not (Test-Path -Path $targetParent)) { return }
+
+    foreach ($link in Get-ChildItem -Path $targetParent | Where-Object { $_.LinkType -and -not $_.ResolveLinkTarget($true).Exists }) {
+        Write-Host "Removing dangling symlink: $($link.FullName) -> $($link.Target)" -ForegroundColor Yellow
+        Remove-Item -Path $link.FullName
+    }
+}
+
 foreach ($entry_type in @("skills", "agents", "instructions")) {
     Add-AgentEntries -entry_type $entry_type
+}
+
+foreach ($link_entry_type in @(
+        $selected_agent_profile.SkillsDirName,
+        $selected_agent_profile.AgentsDirName,
+        $selected_agent_profile.InstructionsDirName
+    )) {
+    Remove-DanglingLinks -link_entry_type $link_entry_type
 }
