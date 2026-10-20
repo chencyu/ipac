@@ -23,4 +23,4 @@ Compare claim-by-claim using the shared contract's acceptance gate. The reconstr
 
 A pointer establishes a reference, not the contents behind it. Verify the target's accessibility and contract separately; never infer equivalence from an opaque link. Judge the candidate in its intended integration after the isolated check, without feeding that integration back to the auditor.
 
-Use the retry and stop rules in `content-de-entropy`; this reference does not start another audit pass.
+Use the retry and stop rules in [audit.md](audit.md); this reference does not start another audit pass.
