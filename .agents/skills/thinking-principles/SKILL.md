@@ -1,7 +1,7 @@
 ---
 name: thinking-principles
 description: "Must load before thinking, reasoning, or judging any problem. Do not produce or evaluate reasoning without this skill."
-user-invocable: false
+user-invocable: true
 ---
 
 # Thinking Principles
