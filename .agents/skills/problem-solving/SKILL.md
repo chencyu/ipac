@@ -1,7 +1,7 @@
 ---
 name: problem-solving
 description: "Must load when solving problems, debugging, diagnosing failures, or choosing between solution approaches. Do not solve problems without this skill."
-user-invocable: false
+user-invocable: true
 ---
 
 # Problem-Solving

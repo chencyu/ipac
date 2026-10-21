@@ -1,7 +1,7 @@
 ---
 name: design-principles
 description: "Must load before designing any system, component, schema, or data model. Do not produce or evaluate designs without this skill."
-user-invocable: false
+user-invocable: true
 ---
 
 # Design Principles
