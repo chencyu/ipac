@@ -12,7 +12,7 @@ Remove avoidable representation, not meaning or required value. Construct every 
 | 2. Decompose | Identify semantic units: declarations, paragraphs, list items, table rows, diagram nodes/edges, comments, messages, names, or configuration entries | Record each candidate unit's contract before rewriting |
 | 3. Propose | For one unit, remove duplication, indirect representation, or unnecessary notation; prefer an existing authoritative representation | Name the burden removed; preserve every contract dimension |
 | 4. Reconstruct | Read [blind-audit.md](references/blind-audit.md) and obtain an isolated reconstruction of the candidate | Do not give the auditor the baseline or desired reading |
-| 5. Compare | Compare reconstructed claims against the recorded contract; check required value and delivery separately | Apply the shared acceptance gate, not a length score |
+| 5. Compare | Compare reconstructed claims against the recorded contract; check required value and delivery separately; a reconstructed requirement, exception, or failure semantic with no source in the contract is invented and removed | Apply the shared acceptance gate, not a length score |
 | 6. Apply | Apply one accepted candidate at a time, then rerun the checks that observe its contract | Verify the integrated artifact, not just the edited unit |
 
 ## Outcomes

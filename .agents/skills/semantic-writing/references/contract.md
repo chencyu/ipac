@@ -5,7 +5,7 @@
 ## Establish the baseline
 
 - Existing content → freeze its pre-edit representation and record its contract before proposing replacements.
-- New content → derive the contract from the request and grounded material; freeze the first draft as the reduction baseline, not as authority for invented claims.
+- New content → derive the contract from the request and grounded material; freeze the first draft as the reduction baseline, not as authority for invented claims. Only provisions traceable to the request or grounded material enter the contract.
 - Authorized changes of meaning → record the changed requirements separately; check them against the request, then audit representation changes against that updated contract.
 - User-protected passages → preserve verbatim unless the user withdraws that boundary. Merely addressing humans or AI is not an exemption from this workflow.
 
