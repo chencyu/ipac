@@ -12,9 +12,9 @@ Readers differ in two parameters, not in rule sets: what they already hold, and 
 
 Content installs a model that answers correctly on its own at the size of the need. A large true fraction of the subject does not run; the complete model of a smaller world does.
 
-- **Scope** = the questions the reader must then answer correctly, derived from the request's shape, not its topic: "why X rather than Y" includes "is Y viable here". Neither widen it nor settle short of it. Each provision traces to a stated requirement or an observed failure. A case the reader can decide at the point of use at least as well as the writer can now stays unwritten; silence delegates it, unmarked.
+- **Scope** = the questions the reader must then answer correctly, derived from the request's shape, not its topic: "why X rather than Y" includes "is Y viable here". Neither widen it nor settle short of it. Each provision traces to a stated requirement or an observed failure. A case the reader can decide at the point of use at least as well as the writer can now stays unwritten; silence delegates it, unmarked. Reading or reviewing content, such a silence is delegation, not a gap: it is a defect only when a stated requirement or observed failure shows the reader decides that case worse.
 - **Selection:** for each fact held, ask whether an in-scope answer changes were the fact different. Changes through how it works → state the mechanism. Changes only through its result → name it and state what it guarantees. No change → absent, not summarised or flagged as omitted.
-- Name in one line where the model stops holding. Simplify only into a restricted case of the truth, never into a mechanism that must later be torn down.
+- Simplify only into a restricted case of the truth, never into a mechanism that must later be torn down; when an in-scope question falls outside the restriction, name the restriction in one line.
 - A hedge is a branch the reader cannot resolve: in scope → state it flat, attached to what it qualifies; out of scope → absent. No preamble, unasked adjacent question, or account of what was read. Stop when the model runs.
 
 ## Attach in order
