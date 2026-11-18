@@ -26,4 +26,4 @@ One meaning has one authoritative home; other occurrences point to it unless the
 
 ## Finite self-application
 
-Audit scope = the frozen target artifact, including this skill or its core instruction when being edited. Audit bookkeeping is evidence about that target, not a recursively generated new target. Proposed reductions follow the bounded pass in [audit.md](audit.md); stop when none can be justified without contract loss.
+Audit scope = the frozen target artifact, including this skill or its core instruction when being edited. Audit bookkeeping is evidence about that target, not a recursively generated new target. Proposed reductions follow the bounded pass in [audit.md](references/audit.md); stop when none can be justified without contract loss.

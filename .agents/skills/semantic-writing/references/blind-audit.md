@@ -4,7 +4,7 @@
 
 ## Isolation
 
-Dispatch a fresh subagent whose entire prompt is the text of [auditor-prompt.md](auditor-prompt.md) followed by the candidate. Pick the agent type with the fewest tools the harness offers; tool access it cannot remove is restricted only by that prompt.
+Dispatch a fresh subagent whose entire prompt is the text of [auditor-prompt.md](references/auditor-prompt.md) followed by the candidate. Pick the agent type with the fewest tools the harness offers; tool access it cannot remove is restricted only by that prompt.
 
 Send the candidate alone. Do not attach its source path, original text, surrounding context, skill identity, author intent, or evaluation hints. Preserve names and references that are part of the candidate itself; stripping them would audit a different candidate.
 
@@ -23,4 +23,4 @@ Compare claim-by-claim using the shared contract's acceptance gate. The reconstr
 
 A pointer establishes a reference, not the contents behind it. Verify the target's accessibility and contract separately; never infer equivalence from an opaque link. Judge the candidate in its intended integration after the isolated check, without feeding that integration back to the auditor.
 
-Use the retry and stop rules in [audit.md](audit.md); this reference does not start another audit pass.
+Use the retry and stop rules in [audit.md](references/audit.md); this reference does not start another audit pass.

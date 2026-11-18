@@ -7,7 +7,7 @@ Every reference to a location in a file is a link. Prose carries no unclickable 
 The base differs by destination, and getting it wrong breaks every link silently.
 
 - Written into chat: relative to the workspace root.
-- Written into a file: relative to that file's own directory.
+- Written into a file: relative to that file's own directory. Inside a skill directory, relative to the skill root, per the [Agent Skills specification](https://agentskills.io/specification#file-references).
 
 A target outside every workspace folder does not resolve in chat. Write the plain path and line number rather than a link that cannot be followed.
 
