@@ -18,4 +18,4 @@ A sound representation makes surrounding code branchless at boundaries and preve
 5. Give every fact one authoritative home, colocate operations with their data, and generate derived views. If speed requires duplication, one small owner must synchronize it.
 6. Sketch the core operation. Short and obvious accepts the representation; long, branchy, or invariant-rechecking returns to step 1.
 
-A cleverer algorithm cannot rescue painful traversal. Validation must return the refined type, not discard what it learned. If a theoretically clean structure conflicts with real data, access patterns, or hardware, reshape to reality. Read `references/lineage.md` only when rationale or sources are needed.
+A cleverer algorithm cannot rescue painful traversal. Validation must return the refined type, not discard what it learned. Read `references/lineage.md` only when rationale or sources are needed.

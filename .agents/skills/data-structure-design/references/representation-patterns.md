@@ -28,4 +28,4 @@ During protocol step 4, match the branch smell—not merely its data type—appl
 | Pointer-chasing a hot collection                     | **contiguous array / arena** + indices instead of pointers | improves locality; indices double as stable handles    |
 | Repeated expensive derivation in a hot path          | **precomputed / memoized view** with one clear owner       | still SSOT: the view is derived, not authoritative     |
 
-After each move, re-derive the core operation; if another branch appears, repeat because moves compose. If no pattern fits, state that the structure may be novel instead of force-fitting one. Performance moves are permitted only after measurement identifies a bottleneck.
+After each move, re-derive the core operation; if another branch appears, repeat because moves compose. Performance moves are permitted only after measurement identifies a bottleneck.
