@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # Equivalent of link-ipac.ps1 for Linux/macOS.
-# Creates symlinks for skills/agents/instructions into the selected agent directory.
+# Creates symlinks for skills/agents/instructions into the selected profile target directories.
 
 usage() {
     cat <<'EOF'
@@ -40,59 +40,64 @@ if [ -n "$AGENT_DIR_NAME" ]; then
     esac
 fi
 
-# Resolve agent profile fields: <default_dir_name> <skills> <agents> <instructions>
+# Resolve agent profile target directories relative to HOME.
 default_dir_name=""
-skills_dir_name="skills"
-agents_dir_name="agents"
-instructions_dir_name="instructions"
 
 case "$AGENT" in
     agent)
         default_dir_name=".agents"
-        instructions_dir_name="instructions"
         ;;
     claude)
         default_dir_name=".claude"
-        instructions_dir_name="rules"
         ;;
     codex)
         default_dir_name=".agents"
-        instructions_dir_name="instructions"
         ;;
     github)
         default_dir_name=".github"
-        instructions_dir_name="instructions"
         ;;
     copilot)
         default_dir_name=".copilot"
-        instructions_dir_name="instructions"
         ;;
 esac
 
 agent_dir_name="${AGENT_DIR_NAME:-$default_dir_name}"
+skills_target_dir="$agent_dir_name/skills"
+agents_target_dir="$agent_dir_name/agents"
+instructions_target_dir="$agent_dir_name/instructions"
+
+if [ "$AGENT" = "claude" ]; then
+    instructions_target_dir="$agent_dir_name/rules"
+elif [ "$AGENT" = "copilot" ]; then
+    skills_target_dir=".agents/skills"
+fi
 
 # Resolve directories.
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 IPAC_DIR="$(dirname "$SCRIPT_DIR")"
-AGENT_DIR="$HOME/$agent_dir_name"
+
+agent_target_dir() {
+    local entry_type="$1"
+
+    case "$entry_type" in
+        skills) printf '%s\n' "$skills_target_dir" ;;
+        agents) printf '%s\n' "$agents_target_dir" ;;
+        instructions) printf '%s\n' "$instructions_target_dir" ;;
+        *) echo "Unknown entry type: $entry_type" >&2; return 1 ;;
+    esac
+}
 
 add_agent_entries() {
     local entry_type="$1"
-    local link_entry_type
-
-    case "$entry_type" in
-        skills) link_entry_type="$skills_dir_name" ;;
-        agents) link_entry_type="$agents_dir_name" ;;
-        instructions) link_entry_type="$instructions_dir_name" ;;
-        *) echo "Unknown entry type: $entry_type" >&2; return 1 ;;
-    esac
+    local target_dir
+    target_dir="$(agent_target_dir "$entry_type")"
 
     local source_dir="$IPAC_DIR/.agents/$entry_type"
     if [ ! -d "$source_dir" ]; then
         return 0
     fi
 
-    local target_parent="$AGENT_DIR/$link_entry_type"
+    local target_parent="$HOME/$target_dir"
     mkdir -p "$target_parent" &> /dev/null
 
     local entry name link_path
@@ -110,7 +115,11 @@ add_agent_entries() {
 }
 
 remove_dangling_links() {
-    local target_parent="$AGENT_DIR/$1"
+    local entry_type="$1"
+    local target_dir
+    target_dir="$(agent_target_dir "$entry_type")"
+
+    local target_parent="$HOME/$target_dir"
     [ -d "$target_parent" ] || return 0
 
     local link_path
@@ -127,6 +136,6 @@ for entry_type in skills agents instructions; do
     add_agent_entries "$entry_type"
 done
 
-for link_entry_type in "$skills_dir_name" "$agents_dir_name" "$instructions_dir_name"; do
-    remove_dangling_links "$link_entry_type"
+for entry_type in skills agents instructions; do
+    remove_dangling_links "$entry_type"
 done

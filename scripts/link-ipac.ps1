@@ -11,46 +11,40 @@ param(
 )
 class AgentProfile {
     [string]$AgentName
-    [string]$AgentDirName
-    [string]$SkillsDirName
-    [string]$AgentsDirName
-    [string]$InstructionsDirName
+    [string]$SkillsTargetDir
+    [string]$AgentsTargetDir
+    [string]$InstructionsTargetDir
 }
 
 $general_agent = [AgentProfile] @{
-    AgentName           = "agent"
-    AgentDirName        = $AgentDirName ?? ".agents"
-    SkillsDirName       = "skills"
-    AgentsDirName       = "agents"
-    InstructionsDirName = "instructions"
+    AgentName             = "agent"
+    SkillsTargetDir       = Join-Path -Path ($AgentDirName ?? ".agents") -ChildPath "skills"
+    AgentsTargetDir       = Join-Path -Path ($AgentDirName ?? ".agents") -ChildPath "agents"
+    InstructionsTargetDir = Join-Path -Path ($AgentDirName ?? ".agents") -ChildPath "instructions"
 }
 $claude_agent = [AgentProfile] @{
-    AgentName           = "claude"
-    AgentDirName        = $AgentDirName ?? ".claude"
-    SkillsDirName       = $general_agent.SkillsDirName
-    AgentsDirName       = $general_agent.AgentsDirName
-    InstructionsDirName = "rules"
+    AgentName             = "claude"
+    SkillsTargetDir       = Join-Path -Path ($AgentDirName ?? ".claude") -ChildPath "skills"
+    AgentsTargetDir       = Join-Path -Path ($AgentDirName ?? ".claude") -ChildPath "agents"
+    InstructionsTargetDir = Join-Path -Path ($AgentDirName ?? ".claude") -ChildPath "rules"
 }
 $codex_agent = [AgentProfile] @{
-    AgentName           = "codex"
-    AgentDirName        = $AgentDirName ?? ".agents"
-    SkillsDirName       = $general_agent.SkillsDirName
-    AgentsDirName       = $general_agent.AgentsDirName
-    InstructionsDirName = $general_agent.InstructionsDirName
+    AgentName             = "codex"
+    SkillsTargetDir       = Join-Path -Path ($AgentDirName ?? ".agents") -ChildPath "skills"
+    AgentsTargetDir       = Join-Path -Path ($AgentDirName ?? ".agents") -ChildPath "agents"
+    InstructionsTargetDir = Join-Path -Path ($AgentDirName ?? ".agents") -ChildPath "instructions"
 }
 $github_agent = [AgentProfile] @{
-    AgentName           = "github"
-    AgentDirName        = $AgentDirName ?? ".github"
-    SkillsDirName       = $general_agent.SkillsDirName
-    AgentsDirName       = $general_agent.AgentsDirName
-    InstructionsDirName = $general_agent.InstructionsDirName
+    AgentName             = "github"
+    SkillsTargetDir       = Join-Path -Path ($AgentDirName ?? ".github") -ChildPath "skills"
+    AgentsTargetDir       = Join-Path -Path ($AgentDirName ?? ".github") -ChildPath "agents"
+    InstructionsTargetDir = Join-Path -Path ($AgentDirName ?? ".github") -ChildPath "instructions"
 }
 $copilot_agent = [AgentProfile] @{
-    AgentName           = "copilot"
-    AgentDirName        = $AgentDirName ?? ".copilot"
-    SkillsDirName       = $general_agent.SkillsDirName
-    AgentsDirName       = $general_agent.AgentsDirName
-    InstructionsDirName = $general_agent.InstructionsDirName
+    AgentName             = "copilot"
+    SkillsTargetDir       = Join-Path -Path ".agents" -ChildPath "skills"
+    AgentsTargetDir       = Join-Path -Path ($AgentDirName ?? ".copilot") -ChildPath "agents"
+    InstructionsTargetDir = Join-Path -Path ($AgentDirName ?? ".copilot") -ChildPath "instructions"
 }
 
 $selected_agent_profile = switch ($Agent) {
@@ -63,7 +57,21 @@ $selected_agent_profile = switch ($Agent) {
 
 
 $IPAC_DIR = $(Get-Item -Path $PSScriptRoot).Parent.FullName
-$AGENT_DIR = Join-Path -Path $HOME -ChildPath $selected_agent_profile.AgentDirName
+
+function Get-AgentTargetDir {
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory = $true)]
+        [ValidateSet("skills", "agents", "instructions")]
+        [string]$entry_type
+    )
+
+    switch ($entry_type) {
+        "skills" { $selected_agent_profile.SkillsTargetDir }
+        "agents" { $selected_agent_profile.AgentsTargetDir }
+        "instructions" { $selected_agent_profile.InstructionsTargetDir }
+    }
+}
 
 function Add-AgentEntries {
     [CmdletBinding()]
@@ -74,13 +82,8 @@ function Add-AgentEntries {
     )
     if (-not (Test-Path -Path "$IPAC_DIR/.agents/$entry_type")) { return }
 
-    $link_entry_type = switch ($entry_type) {
-        "skills" { $selected_agent_profile.SkillsDirName }
-        "agents" { $selected_agent_profile.AgentsDirName }
-        "instructions" { $selected_agent_profile.InstructionsDirName }
-    }
-
-    $targetParent = Join-Path -Path $AGENT_DIR -ChildPath $link_entry_type
+    $target_dir = Get-AgentTargetDir -entry_type $entry_type
+    $targetParent = Join-Path -Path $HOME -ChildPath $target_dir
     New-Item -ItemType Directory -Path $targetParent -Force -ErrorAction SilentlyContinue | Out-Null
 
     foreach ($entry in Get-ChildItem -Path "$IPAC_DIR/.agents/$entry_type") {
@@ -98,9 +101,11 @@ function Remove-DanglingLinks {
     [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true)]
-        [string]$link_entry_type
+        [ValidateSet("skills", "agents", "instructions")]
+        [string]$entry_type
     )
-    $targetParent = Join-Path -Path $AGENT_DIR -ChildPath $link_entry_type
+    $target_dir = Get-AgentTargetDir -entry_type $entry_type
+    $targetParent = Join-Path -Path $HOME -ChildPath $target_dir
     if (-not (Test-Path -Path $targetParent)) { return }
 
     foreach ($link in Get-ChildItem -Path $targetParent | Where-Object { $_.LinkType -and -not $_.ResolveLinkTarget($true).Exists }) {
@@ -113,10 +118,6 @@ foreach ($entry_type in @("skills", "agents", "instructions")) {
     Add-AgentEntries -entry_type $entry_type
 }
 
-foreach ($link_entry_type in @(
-        $selected_agent_profile.SkillsDirName,
-        $selected_agent_profile.AgentsDirName,
-        $selected_agent_profile.InstructionsDirName
-    )) {
-    Remove-DanglingLinks -link_entry_type $link_entry_type
+foreach ($entry_type in @("skills", "agents", "instructions")) {
+    Remove-DanglingLinks -entry_type $entry_type
 }
