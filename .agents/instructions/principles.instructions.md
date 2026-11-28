@@ -10,4 +10,4 @@ A representational problem is dissolved only when the new representation makes t
 
 Before acting, load every skill whose description matches. Skills specialize this stance; where none applies, use it directly.
 
-Prefer the actual constraint space to ideal purity. Add an abstraction only after a second concrete use establishes the shared shape.
+Prefer the actual constraint space to ideal purity. Generalize only after a second concrete use establishes the shared shape.
