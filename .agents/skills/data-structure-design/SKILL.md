@@ -12,7 +12,7 @@ A sound representation makes surrounding code branchless at boundaries and preve
 ## Protocol
 
 1. List entities, each identity, and relationships (1:1, 1:N, N:M, order, hierarchy, graph); draw tables before flows.
-2. Make invariants unrepresentable in the type. Parse loose input once at the boundary into that type: replace boolean state combinations with an enum/tagged union, list-plus-deduplication with an identity-keyed map/set, and repeated range checks with a smart-constructed newtype.
+2. Make invariant violations unrepresentable in the type. Parse loose input once at the boundary into that type: replace boolean state combinations with an enum/tagged union, list-plus-deduplication with an identity-keyed map/set, and repeated range checks with a smart-constructed newtype.
 3. Make the dominant or critical operation cheap by construction and state its trade-off. Shape correctness now; defer hardware/layout tuning until measurement proves a bottleneck.
 4. Walk every operation and replace each boundary branch with a representation where it is ordinary. For a known smell, use `references/representation-patterns.md`, then delete the branch.
 5. Give every fact one authoritative home, colocate operations with their data, and generate derived views. If speed requires duplication, one small owner must synchronize it.
